@@ -61,5 +61,6 @@ margin_right = 540.0
 margin_bottom = 960.0
 
 [connection signal="spawn_laser" from="Player" to="." method="spawn_laser"]
+[connection signal="update_player_hp" from="Player" to="." method="_on_Player_update_player_hp"]
 [connection signal="spawn_enemy" from="EnemySpawner" to="." method="spawn_enemy"]
 [connection signal="timeout" from="EnemySpawner/SpawnTimer" to="EnemySpawner" method="_on_SpawnTimer_timeout"]

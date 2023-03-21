@@ -5,6 +5,7 @@ class_name Player
 onready var muzzle = $Muzzle
 
 signal spawn_laser(Laser, player_loc)
+signal update_player_hp(amount)
 
 export (int) var speed = 300
 export (int) var hp = 3
@@ -31,5 +32,6 @@ func _on_Player_area_entered(area):
 		
 func take_damage(d):
 	hp -= d
+	emit_signal("update_player_hp", hp)
 	if hp <= 0:
 		queue_free()	
