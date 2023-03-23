@@ -23,6 +23,7 @@ func spawn_laser(Laser, location):
 	add_child(laser)
 
 func spawn_enemy(EnemyScene, location):
+	print("Spawning enemy...")
 	var enemy = EnemyScene.instance()
 	enemy.global_position = location
 	EnemyContainer.add_child(enemy)
@@ -32,3 +33,4 @@ func spawn_enemy(EnemyScene, location):
 	
 func _on_Player_update_player_hp(amount):
 	HUD.update_hp(amount)
+

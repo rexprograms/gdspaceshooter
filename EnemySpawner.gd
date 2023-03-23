@@ -4,6 +4,7 @@ export (Array, PackedScene) var enemies
 signal spawn_enemy(enemy, location)
 
 var spawn_positions = null
+var last_loc = null
 
 func _ready():
 	randomize()
@@ -12,8 +13,14 @@ func _ready():
 func _on_SpawnTimer_timeout():
 	spawn_random_enemy()
 	
-func spawn_random_enemy():
-	var rand_enemy = enemies[randi() % enemies.size()]
-	var rand_loc = spawn_positions[randi() % spawn_positions.size()].global_position
-	emit_signal("spawn_enemy", rand_enemy, rand_loc)
+func _on_SpawnTimer2_timeout():
+	print("Spawn bonus enemy")
+	spawn_random_enemy()
 	
+func spawn_random_enemy():
+	var rand_enemy = randi() % enemies.size() 
+	var rand_loc = randi() % spawn_positions.size()
+	if(rand_loc == last_loc):
+		rand_loc = (rand_loc + 1) % spawn_positions.size()
+	last_loc = rand_loc	
+	emit_signal("spawn_enemy", enemies[rand_enemy], spawn_positions[rand_loc].global_position)
