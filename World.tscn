@@ -27,40 +27,43 @@ texture = ExtResource( 1 )
 region_enabled = true
 region_rect = Rect2( 0, 0, 540, 960 )
 
-[node name="Player" parent="." instance=ExtResource( 2 )]
-position = Vector2( 285, 875 )
+[node name="EnemyContainer" type="Node2D" parent="."]
 
-[node name="EnemySpawner" type="Node2D" parent="."]
+[node name="EnemySpawner" type="Node2D" parent="EnemyContainer"]
 script = ExtResource( 3 )
 enemies = [ ExtResource( 7 ), ExtResource( 4 ), ExtResource( 5 ) ]
 
-[node name="SpawnPositions" type="Node2D" parent="EnemySpawner"]
+[node name="SpawnPositions" type="Node2D" parent="EnemyContainer/EnemySpawner"]
 position = Vector2( 0, -40 )
 
-[node name="SpawnPosition_1" type="Position2D" parent="EnemySpawner/SpawnPositions"]
+[node name="SpawnPosition_1" type="Position2D" parent="EnemyContainer/EnemySpawner/SpawnPositions"]
 position = Vector2( 50, 0 )
 
-[node name="SpawnPosition_2" type="Position2D" parent="EnemySpawner/SpawnPositions"]
+[node name="SpawnPosition_2" type="Position2D" parent="EnemyContainer/EnemySpawner/SpawnPositions"]
 position = Vector2( 150, 0 )
 
-[node name="SpawnPosition_3" type="Position2D" parent="EnemySpawner/SpawnPositions"]
+[node name="SpawnPosition_3" type="Position2D" parent="EnemyContainer/EnemySpawner/SpawnPositions"]
 position = Vector2( 250, 0 )
 
-[node name="SpawnPosition_4" type="Position2D" parent="EnemySpawner/SpawnPositions"]
+[node name="SpawnPosition_4" type="Position2D" parent="EnemyContainer/EnemySpawner/SpawnPositions"]
 position = Vector2( 350, 0 )
 
-[node name="SpawnPosition_5" type="Position2D" parent="EnemySpawner/SpawnPositions"]
+[node name="SpawnPosition_5" type="Position2D" parent="EnemyContainer/EnemySpawner/SpawnPositions"]
 position = Vector2( 450, 0 )
 
-[node name="SpawnTimer" type="Timer" parent="EnemySpawner"]
-wait_time = 2.0
+[node name="SpawnTimer" type="Timer" parent="EnemyContainer/EnemySpawner"]
+wait_time = 1.25
 autostart = true
 
 [node name="HUD" parent="." instance=ExtResource( 9 )]
 margin_right = 540.0
 margin_bottom = 960.0
 
+[node name="Player" parent="." instance=ExtResource( 2 )]
+position = Vector2( 285, 875 )
+hp = 7
+
+[connection signal="spawn_enemy" from="EnemyContainer/EnemySpawner" to="." method="spawn_enemy"]
+[connection signal="timeout" from="EnemyContainer/EnemySpawner/SpawnTimer" to="EnemyContainer/EnemySpawner" method="_on_SpawnTimer_timeout"]
 [connection signal="spawn_laser" from="Player" to="." method="spawn_laser"]
 [connection signal="update_player_hp" from="Player" to="." method="_on_Player_update_player_hp"]
-[connection signal="spawn_enemy" from="EnemySpawner" to="." method="spawn_enemy"]
-[connection signal="timeout" from="EnemySpawner/SpawnTimer" to="EnemySpawner" method="_on_SpawnTimer_timeout"]

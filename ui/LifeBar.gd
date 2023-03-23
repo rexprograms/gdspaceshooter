@@ -1,22 +1,29 @@
 extends Control
 
+onready var HP = preload("res://ui/HP.tscn")
+
+var current_hp = 0
+
 func _ready():
 	pass # Replace with function body.
 
 func update_hp(amount):
-	remove_hp_nodes()
-	add_hp_nodes(amount)
+	var diff = amount - current_hp
+	if diff < 0:
+		remove_hp_nodes(current_hp, diff * -1)
+	elif diff > 0:
+		add_hp_nodes(current_hp, diff)
+	current_hp = amount
 	
-func remove_hp_nodes():
-	for n in get_children():
-		remove_child(n)
-		n.queue_free()
+func remove_hp_nodes(current, amount):
+	var start_index = current - 1
+	for i in range(start_index, start_index-amount, -1):
+		var child = get_child(i)
+		child.destroy()
 		
-func add_hp_nodes(amount):
+func add_hp_nodes(current, amount):
 	for i in amount:
-		var spr = Sprite.new()
-		spr.texture = load("res://assets/player-life.png")
-		spr.scale = Vector2(.7,.7	)
-		var x_position = spr.texture.get_width() * i + 10
-		spr.position = Vector2(x_position, 0)
-		add_child(spr)
+		var hp = HP.instance()
+		var x_position = 30 * (i + current)
+		hp.position = Vector2(x_position, 0)
+		add_child(hp)

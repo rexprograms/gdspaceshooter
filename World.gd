@@ -2,6 +2,7 @@ extends Node2D
 
 onready var HUD = $HUD
 onready var player = $Player
+onready var EnemyContainer = $EnemyContainer
 var score = 0
 
 func _ready():
@@ -24,12 +25,10 @@ func spawn_laser(Laser, location):
 func spawn_enemy(EnemyScene, location):
 	var enemy = EnemyScene.instance()
 	enemy.global_position = location
-	add_child(enemy)
+	EnemyContainer.add_child(enemy)
 	enemy.connect("enemy_died", self, "enemy_died")
 	if enemy.has_signal("spawn_laser"):
 		enemy.connect("spawn_laser", self, "spawn_laser")
 	
-
-
 func _on_Player_update_player_hp(amount):
 	HUD.update_hp(amount)
