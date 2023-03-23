@@ -18,6 +18,7 @@ func _on_Enemy_area_entered(area):
 		area.take_damage(damage)
 		
 func take_damage(d):
+	$Hit.play()
 	hp -= d
 	if hp <= 0:
 		emit_signal("enemy_died", score)
