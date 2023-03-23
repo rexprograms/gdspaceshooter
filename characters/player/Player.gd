@@ -23,6 +23,7 @@ func _physics_process(delta):
 	global_position.y = clamp(global_position.y, 0, 960)
 	
 	if Input.is_action_just_pressed("shoot"):
+		$Laser.play()
 		emit_signal("spawn_laser", Laser, muzzle.global_position)
 
 
@@ -31,6 +32,7 @@ func _on_Player_area_entered(area):
 		area.take_damage(damage)
 		
 func take_damage(d):
+	$Hit.play()
 	hp -= d
 	emit_signal("update_player_hp", hp)
 	if hp <= 0:
