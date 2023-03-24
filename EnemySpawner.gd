@@ -14,7 +14,6 @@ func _on_SpawnTimer_timeout():
 	spawn_random_enemy()
 	
 func _on_SpawnTimer2_timeout():
-	print("Spawn bonus enemy")
 	spawn_random_enemy()
 	
 func spawn_random_enemy():
