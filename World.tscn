@@ -64,16 +64,19 @@ autostart = true
 wait_time = 2.5
 autostart = true
 
-[node name="HUD" parent="." instance=ExtResource( 9 )]
-margin_right = 540.0
-margin_bottom = 960.0
-
 [node name="Player" parent="." instance=ExtResource( 2 )]
 position = Vector2( 285, 875 )
-hp = 7
+hp = 5
+
+[node name="UILayer" type="CanvasLayer" parent="."]
+
+[node name="HUD" parent="UILayer" instance=ExtResource( 9 )]
+margin_right = 540.0
+margin_bottom = 960.0
 
 [connection signal="spawn_enemy" from="EnemyContainer/EnemySpawner" to="." method="spawn_enemy"]
 [connection signal="timeout" from="EnemyContainer/EnemySpawner/SpawnTimer" to="EnemyContainer/EnemySpawner" method="_on_SpawnTimer_timeout"]
 [connection signal="timeout" from="EnemyContainer/EnemySpawner/SpawnTimer2" to="EnemyContainer/EnemySpawner" method="_on_SpawnTimer2_timeout"]
+[connection signal="player_died" from="Player" to="." method="_on_Player_player_died"]
 [connection signal="spawn_laser" from="Player" to="." method="spawn_laser"]
 [connection signal="update_player_hp" from="Player" to="." method="_on_Player_update_player_hp"]

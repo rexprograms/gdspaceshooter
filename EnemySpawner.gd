@@ -24,3 +24,11 @@ func spawn_random_enemy():
 		rand_loc = (rand_loc + 1) % spawn_positions.size()
 	last_loc = rand_loc	
 	emit_signal("spawn_enemy", enemies[rand_enemy], spawn_positions[rand_loc].global_position)
+	
+func stop():	
+	$SpawnTimer.stop()
+	$SpawnTimer2.stop()
+	
+func start():
+	$SpawnTimer.start()
+	$SpawnTimer2.start()

@@ -5,6 +5,9 @@ class_name HUD
 onready var score_label = $ScoreLabel
 onready var life_bar = $LifeBar
 
+func hide_score():
+	score_label.hide()
+
 func update_score(score):
 	score_label.text = "Score: %d" % score
 	

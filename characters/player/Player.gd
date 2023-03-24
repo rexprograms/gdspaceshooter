@@ -6,6 +6,7 @@ onready var muzzle = $Muzzle
 
 signal spawn_laser(Laser, player_loc)
 signal update_player_hp(amount)
+signal player_died()
 
 export (int) var speed = 300
 export (int) var hp = 3
@@ -23,8 +24,11 @@ func _physics_process(delta):
 	global_position.y = clamp(global_position.y, 0, 960)
 	
 	if Input.is_action_just_pressed("shoot"):
-		$Laser.play()
-		emit_signal("spawn_laser", Laser, muzzle.global_position)
+		shoot()
+		$ShotSpeed.start()
+	
+	if Input.is_action_just_released("shoot"):
+		$ShotSpeed.stop()
 
 
 func _on_Player_area_entered(area):
@@ -37,3 +41,11 @@ func take_damage(d):
 	emit_signal("update_player_hp", hp)
 	if hp <= 0:
 		queue_free()	
+		emit_signal("player_died")
+
+func shoot():
+	$Laser.play()
+	emit_signal("spawn_laser", Laser, muzzle.global_position)
+
+func _on_ShotSpeed_timeout():
+	shoot()

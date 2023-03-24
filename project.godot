@@ -33,7 +33,7 @@ _global_script_class_icons={
 [application]
 
 config/name="GDSpace"
-run/main_scene="res://World.tscn"
+run/main_scene="res://ui/MainMenu.tscn"
 config/icon="res://icon.png"
 
 [display]
