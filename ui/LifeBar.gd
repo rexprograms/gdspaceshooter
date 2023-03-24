@@ -10,15 +10,15 @@ func _ready():
 	pass # Replace with function body.
 
 func update_hp(amount):
-	var diff = amount - current_hp
-	if diff < 0:
-		remove_hp_nodes(current_hp, diff * -1)
-	elif diff > 0:
-		add_hp_nodes(current_hp, diff)
-	current_hp = amount
+	if amount >= 0:
+		var diff = amount - current_hp
+		if diff < 0:
+			remove_hp_nodes(diff * -1)
+		elif diff > 0:
+			add_hp_nodes(current_hp, diff)
+		current_hp = amount
 	
-func remove_hp_nodes(current, amount):
-	var start_index = current - 1
+func remove_hp_nodes(amount):
 	for i in amount:
 		var child = pips.pop_back()
 		child.destroy()
