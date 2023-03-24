@@ -32,8 +32,6 @@ func _on_Player_update_player_hp(amount):
 
 func _on_Player_player_died():
 	explosion(player.global_position)
-	var timer = get_tree().create_timer(1.5)
-	yield(timer, "timeout")
 	game_over()
 	
 func enemy_died(_score, pos):
@@ -48,6 +46,8 @@ func explosion(pos):
 
 func game_over():
 	EnemySpawner.stop()	
+	var timer = get_tree().create_timer(2)
+	yield(timer, "timeout")
 	var game_over_menu = GAMEOVER.instance()
 	game_over_menu.set_score(score)
 	HUD.hide_score()
