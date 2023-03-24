@@ -2,6 +2,7 @@ extends Control
 
 func _ready():
 	$AnimationPlayer.play("animate_score")
+	$FadeContainer.visible = true
 
 func set_score(score):
 	$Score.text = "Score: %d" % score
